@@ -1,8 +1,7 @@
 import os
 import logging
-import requests
 from playwright.sync_api import sync_playwright
-from sec_client import HEADERS
+from sec_client import edgar_get
 
 logger = logging.getLogger(__name__)
 
@@ -29,10 +28,9 @@ def save_reports_as_pdf(reports: dict[str, str]) -> dict[str, list]:
                 filename = f"{company_name.replace(' ', '_')}_10K.pdf"
                 output_path = os.path.join(OUTPUT_DIR, filename)
 
-                # Download HTML via requests (already accepted by SEC)
+                # Download HTML via requests (rate-limited, already accepted by SEC)
                 logger.info(f"{company_name} - Downloading filing...")
-                response = requests.get(url, headers=HEADERS)
-                response.raise_for_status()
+                response = edgar_get(url)
 
                 # Save HTML temporarily
                 temp_html = os.path.abspath(

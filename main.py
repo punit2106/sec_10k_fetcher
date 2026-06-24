@@ -1,4 +1,3 @@
-import time
 import logging
 from config import COMPANIES
 from sec_client import get_latest_10k_url
@@ -23,7 +22,6 @@ def main():
             reports[company_name] = url
         except Exception as e:
             logger.error(f"{company_name} - Failed to get URL: {e}")
-        time.sleep(1)
 
     # Step 2: Convert all to PDF in one browser session
     logger.info(f"Converting {len(reports)} reports to PDF")
