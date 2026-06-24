@@ -3,6 +3,7 @@
 1. Open the project in VS Code
 2. Click **"Reopen in Container"** when prompted
 3. Run:
+
 ```bash
 python main.py
 ```
